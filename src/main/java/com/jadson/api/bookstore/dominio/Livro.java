@@ -1,7 +1,6 @@
 package com.jadson.api.bookstore.dominio;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +11,8 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
+@Entity()
+@Table(name = "LIVRO")
 public class Livro implements Serializable {
 
     @Id

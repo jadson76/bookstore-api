@@ -1,16 +1,20 @@
 package com.jadson.api.bookstore.dominio;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
-@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity()
+@Table(name = "CATEGORIA")
 public class Categoria implements Serializable {
 
     @Id
@@ -19,7 +23,13 @@ public class Categoria implements Serializable {
     private String nome;
     private String descricao;
     @OneToMany(mappedBy = "categoria")
-    private List<Livro> livros;
+    private List<Livro> livros = new ArrayList<>();
+
+    public Categoria(Integer id,String nome,String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+    }
 
     @Override
     public boolean equals(Object o) {
