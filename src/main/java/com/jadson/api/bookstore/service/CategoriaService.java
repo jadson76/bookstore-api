@@ -5,6 +5,7 @@ import com.jadson.api.bookstore.dtos.CategoriaDTO;
 import com.jadson.api.bookstore.exceptions.ObjectNotFoundException;
 import com.jadson.api.bookstore.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,6 +46,12 @@ public class CategoriaService {
 
     public void delete(Integer id) {
         findById(id);
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        }catch (DataIntegrityViolationException ex) {
+            throw new com.jadson.api.bookstore
+                    .exceptions
+                    .DataIntegrityViolationException("Categoria não pode ser deletada! Possui livros associados");
+        }
     }
 }
